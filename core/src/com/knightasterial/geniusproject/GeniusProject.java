@@ -22,6 +22,7 @@ public class GeniusProject extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0);
+		batch.draw(img, 100, 0);			//test edit for github
 		batch.end();
 	}
 	
