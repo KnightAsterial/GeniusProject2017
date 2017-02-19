@@ -13,11 +13,13 @@ public class GeniusProject extends Game {
 
 	List<Screen> screensToDispose;
 	WorldController worldController;
+	GameScreen inGameScreen;
 	
 	@Override
 	public void create () {
 		worldController = new WorldController();
-		setScreen(new GameScreen(this, worldController));
+		inGameScreen = new GameScreen(this, worldController);
+		setScreen(inGameScreen);
 	}
 
 	@Override
@@ -46,6 +48,6 @@ public class GeniusProject extends Game {
 	
 	@Override
 	public void dispose () {
-
+		inGameScreen.dispose();
 	}
 }

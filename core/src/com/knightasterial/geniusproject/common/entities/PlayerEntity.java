@@ -3,9 +3,10 @@ package com.knightasterial.geniusproject.common.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.utils.Disposable;
 import com.knightasterial.geniusproject.common.util.GameConstants;
 
-public class PlayerEntity implements IEntity{
+public class PlayerEntity implements IEntity, Disposable{
 
 	float xCoord;
 	float yCoord;
@@ -76,6 +77,11 @@ public class PlayerEntity implements IEntity{
 	@Override
 	public void setHealth(double health) {
 		this.health = health;
+	}
+
+	@Override
+	public void dispose() {
+		image.dispose();
 	}
 
 }
