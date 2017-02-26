@@ -40,4 +40,12 @@ public interface IEntity {
 	public double getHealth();
 	
 	public void setHealth(double health);
+	
+	public void setLowerLeftX(float lowerLeftX);
+	
+	public float getLowerLeftX();
+	
+	public void setLowerLeftY(float lowerLeftY);
+	
+	public float getLowerLeftY();
 }

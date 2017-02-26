@@ -6,7 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.knightasterial.geniusproject.common.entities.IEntity;
+import com.knightasterial.geniusproject.common.util.GameConstants;
 import com.knightasterial.geniusproject.common.world.WorldController;
 
 public class GameScreen implements Screen{
@@ -24,7 +25,7 @@ public class GameScreen implements Screen{
 		//sets camera and spritebatch
 		batch = new SpriteBatch();
 		inGameCam = new OrthographicCamera();
-		inGameCam.setToOrtho(false, 1000, 800);
+		inGameCam.setToOrtho(false, GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
 		
 		test = new Texture(Gdx.files.internal("badlogic.jpg"));
 	}
@@ -47,7 +48,14 @@ public class GameScreen implements Screen{
 		
 		batch.begin();
 		
-		batch.draw(worldController.player.getImage(), worldController.player.getX(), worldController.player.getY());
+		batch.draw(worldController.player.getImage(), worldController.player.getLowerLeftX(), worldController.player.getLowerLeftY());
+		
+		for (IEntity temp : worldController.zombieList){
+			batch.draw(temp.getImage(), temp.getLowerLeftX(), temp.getLowerLeftY());
+			
+		}
+		
+		
 		
 		batch.end();
 		

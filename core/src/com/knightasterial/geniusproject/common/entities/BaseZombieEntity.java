@@ -6,28 +6,37 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.utils.Disposable;
 import com.knightasterial.geniusproject.common.util.GameConstants;
 
-public class PlayerEntity implements IEntity, Disposable{
+public class BaseZombieEntity implements IEntity, Disposable{
 
 	float xCoord;
 	float yCoord;
-	float lowerLeftX;
-	float lowerLeftY;
 	Texture image;
 	float rotation;
 	Circle hitbox;
 	double health;
+	
+	float lowerLeftX;
+	float lowerLeftY;
+	
 	int radius = 16;
 	
-	public PlayerEntity(){
-		xCoord = GameConstants.WINDOW_WIDTH/2;
-		yCoord = GameConstants.WINDOW_HEIGHT/2;
-		rotation = 0;
+	/**
+	 * health =
+	 * @param x initial X-coordinate
+	 * @param y initial Y-coordinate
+	 * @param rotation radians to face (on unit circle)
+	 */
+	public BaseZombieEntity(float x, float y, float rotation){
+		xCoord = x;
+		yCoord = y;
 		lowerLeftX = xCoord-radius;
 		lowerLeftY = yCoord-radius;
-		image = new Texture(Gdx.files.internal("entities/tempPlayer.png"));
+		this.rotation = rotation;
+		image = new Texture(Gdx.files.internal("entities/tempBasicZombie.png"));
 		hitbox = new Circle(lowerLeftX, lowerLeftY, radius);
-		health = GameConstants.BASE_PLAYER_HEALTH;
-	}
+		health = GameConstants.BASE_BASIC_ZOMBIE_HEALTH;
+	}	
+	
 	
 	@Override
 	public float getX() {
