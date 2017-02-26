@@ -2,6 +2,7 @@ package com.knightasterial.geniusproject.common.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 
 public interface IEntity {
 	
@@ -14,6 +15,10 @@ public interface IEntity {
 	public float getY();
 	
 	public void setY(float yCoord);
+	
+	public Vector2 getPosition();
+	public void setPosition(Vector2 position);
+	public void setPosition(float x, float y);
 	
 	
 	public void setImage(Texture image);
@@ -48,4 +53,5 @@ public interface IEntity {
 	public void setLowerLeftY(float lowerLeftY);
 	
 	public float getLowerLeftY();
+	
 }
