@@ -54,7 +54,6 @@ public class GameScreen implements Screen{
 		inGameCam.update();
 		batch.setProjectionMatrix(inGameCam.combined);
 		
-		BitmapFont font = new BitmapFont();
 		
 		batch.begin();
 		
@@ -64,7 +63,6 @@ public class GameScreen implements Screen{
 			batch.draw(temp.getImage(), temp.getLowerLeftX(), temp.getLowerLeftY());
 			
 		}
-		font.draw(batch, IOUtil.getMouseX() + " " + IOUtil.getMouseY(), 10, 10);
 		
 		batch.end();
 		
