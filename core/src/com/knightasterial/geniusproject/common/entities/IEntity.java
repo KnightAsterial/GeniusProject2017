@@ -3,8 +3,9 @@ package com.knightasterial.geniusproject.common.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Disposable;
 
-public interface IEntity {
+public interface IEntity extends Disposable {
 	
 	
 	public float getX();
@@ -53,5 +54,7 @@ public interface IEntity {
 	public void setLowerLeftY(float lowerLeftY);
 	
 	public float getLowerLeftY();
+	
+	public void dispose();
 	
 }

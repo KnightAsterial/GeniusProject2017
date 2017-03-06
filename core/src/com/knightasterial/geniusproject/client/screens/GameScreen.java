@@ -6,10 +6,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.knightasterial.geniusproject.common.bullets.BasicBullet;
 import com.knightasterial.geniusproject.common.entities.IEntity;
 import com.knightasterial.geniusproject.common.util.GameConstants;
 import com.knightasterial.geniusproject.common.util.IOUtil;
@@ -50,6 +50,7 @@ public class GameScreen implements Screen{
 		//UPDATES GAME LOGIC
 		worldController.update(delta);
 		
+		
 		//DOES ALL THE DRAWINGS AND STUFF
 		inGameCam.update();
 		batch.setProjectionMatrix(inGameCam.combined);
@@ -64,19 +65,40 @@ public class GameScreen implements Screen{
 			
 		}
 		
+		for (BasicBullet bullet : worldController.bulletList){
+			batch.draw(bullet.getImage(), bullet.getX(), bullet.getY(), 
+					 0, 0, 40, 2, 												//width on screen
+					 1, 1, bullet.getRotation(), 
+					 0, 0, 40, 2, 												//coords from Texture
+					 false, false);
+		}
+	
+		
 		batch.end();
 		
-		/*   TO SHOW HITBOXES
+
 		sRender.setProjectionMatrix(inGameCam.combined);
-		sRender.begin(ShapeType.Filled);
+		sRender.begin(ShapeType.Line);
 		sRender.setColor(Color.RED);
+		
+		/*
+		//draw zombie hitboxes
 		for (IEntity temp : worldController.zombieList){
 			sRender.circle(temp.getHitbox().x, temp.getHitbox().y, temp.getHitbox().radius);
 			
 		}
-		
-		sRender.end();
+		//draw bullet hitboxes
+		for (BasicBullet temp : worldController.bulletList){
+			sRender.polygon(temp.getHitboxVertices());
+		}
 		*/
+		
+		/*
+		sRender.circle(IOUtil.getMouseX(), IOUtil.getMouseY(), 2);
+		
+		*/
+		sRender.end();
+
 	}
 
 	@Override
@@ -109,6 +131,10 @@ public class GameScreen implements Screen{
 		batch.dispose();
 		
 		
+	}
+	
+	public OrthographicCamera getInGameCam(){
+		return inGameCam;
 	}
 
 }

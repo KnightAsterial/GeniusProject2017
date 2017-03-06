@@ -19,6 +19,7 @@ public class GeniusProject extends Game {
 	public void create () {
 		worldController = new WorldController();
 		inGameScreen = new GameScreen(this, worldController);
+		worldController.setInGameCamera(inGameScreen.getInGameCam());
 		setScreen(inGameScreen);
 	}
 

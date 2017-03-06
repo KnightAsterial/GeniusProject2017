@@ -16,7 +16,7 @@ public class PlayerEntity implements IEntity, Disposable{
 	int radius = 16;
 	Vector2 position;
 	
-
+	
 
 	public PlayerEntity(){
 		position = new Vector2(GameConstants.WINDOW_WIDTH/2, GameConstants.WINDOW_HEIGHT/2);
