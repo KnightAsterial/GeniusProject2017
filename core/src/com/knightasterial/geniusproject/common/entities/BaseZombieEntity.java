@@ -42,7 +42,7 @@ public class BaseZombieEntity implements IEntity, Disposable, IZombie{
 
 		this.rotation = rotation;
 		image = new Texture(Gdx.files.internal("entities/tempBasicZombie.png"));
-
+		
 		health = GameConstants.BASE_BASIC_ZOMBIE_HEALTH;
 		
 		speed = GameConstants.BASE_BASIC_ZOMBIE_SPEED;
@@ -162,6 +162,7 @@ public class BaseZombieEntity implements IEntity, Disposable, IZombie{
 	@Override
 	public void dispose() {
 		image.dispose();
+		//System.out.println("Zombie disposed of");
 	}
 
 	@Override
