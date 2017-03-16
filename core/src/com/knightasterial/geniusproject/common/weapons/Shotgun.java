@@ -8,20 +8,20 @@ import com.knightasterial.geniusproject.common.bullets.BasicBullet;
 import com.knightasterial.geniusproject.common.entities.PlayerEntity;
 import com.knightasterial.geniusproject.common.util.IOUtil;
 
-public class ColtRevolver extends AbstractGun{
+public class Shotgun extends AbstractGun{
 
-	public ColtRevolver(){
+	public Shotgun(){
 		
 		//stats of gun declared
-		name = "Colt Revolver";
-		description = "A handgun with 6 rounds with a moderate reload time";
-		damage = 2;
-		fireRate = 1;
-		reloadTime = 2;
-		bulletsPerFire = 1;
+		name = "Shotgun";
+		description = "Shotgun firing 4 pellets with a long reload";
+		damage = 1;
+		fireRate = 2;
+		reloadTime = 4;
+		bulletsPerFire = 4;
 		bulletSpeed = 1000;
-		bulletSpread = 0;
-		maxAmmo = 6;
+		bulletSpread = 10;
+		maxAmmo = 4;
 		currentAmmo = maxAmmo;
 		nanoTimeOfFire = -1;
 		nanoTimeOfReload = -1;
@@ -31,7 +31,9 @@ public class ColtRevolver extends AbstractGun{
 	@Override
 	public void fire(PlayerEntity player, List<BasicBullet> bulletList, OrthographicCamera inGameCam) {
 		if ( (TimeUtils.nanoTime() - nanoTimeOfFire) > (fireRate*1000000000) &&  (TimeUtils.nanoTime()-nanoTimeOfReload) > (reloadTime * 1000000000) && currentAmmo > 0){
-			bulletList.add(new BasicBullet(player.getPosition(), IOUtil.getMouseVector(inGameCam), bulletSpeed, bulletSpread, damage));
+			for(int i=0; i < bulletsPerFire; i++){
+				bulletList.add(new BasicBullet(player.getPosition(), IOUtil.getMouseVector(inGameCam), bulletSpeed, bulletSpread, damage));
+			}
 			nanoTimeOfFire = TimeUtils.nanoTime();
 			currentAmmo -= 1;
 		}
@@ -49,5 +51,4 @@ public class ColtRevolver extends AbstractGun{
 		
 	}
 	
-
 }

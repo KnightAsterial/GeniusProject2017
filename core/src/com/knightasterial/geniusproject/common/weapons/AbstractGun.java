@@ -3,6 +3,7 @@ package com.knightasterial.geniusproject.common.weapons;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.knightasterial.geniusproject.common.bullets.BasicBullet;
 import com.knightasterial.geniusproject.common.entities.PlayerEntity;
 
@@ -129,6 +130,18 @@ public abstract class AbstractGun {
 	}
 	public void setNanoTimeOfReload(long nanoTimeOfReload) {
 		this.nanoTimeOfReload = nanoTimeOfReload;
+	}
+	
+	public String getDisplayText(){
+		if ((TimeUtils.nanoTime()-nanoTimeOfReload) < (reloadTime*1000000000)){
+			return "Reloading";
+		}
+		else if (nanoTimeOfReload < 0){
+			return currentAmmo + "";
+		}
+		else{
+			return currentAmmo + "";
+		}
 	}
 	
 	

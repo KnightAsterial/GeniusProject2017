@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.knightasterial.geniusproject.common.entities.IEntity;
 import com.knightasterial.geniusproject.common.entities.IZombie;
+import com.knightasterial.geniusproject.common.weapons.AbstractGun;
 
 public class GameUtil {
 	
@@ -42,8 +43,29 @@ public class GameUtil {
 				}
 			}
 		}
-
-		
 		return result;
 	}
+	
+	/**
+	 * returns gun based on keypress, doesn't change the current gun if the desired gun is a NullWeapon (hasn't been set)
+	 * @param currentGun variable holding user's current gun
+	 * @param gunList list of available guns
+	 * @param keyPressed the number of the key that was pressed(Keys.0 = 10) (NOT INDEX) 
+	 * @return gun to switch to
+	 */
+	public static AbstractGun switchGun(AbstractGun currentGun, AbstractGun[] gunList, int keyPressed){
+		if (keyPressed < 1){
+			//does nothing
+			return currentGun;
+		}
+		if (gunList[keyPressed-1].getName() != GameConstants.NULL_WEAPON_ID){
+			//returns the gun to switch to
+			return gunList[keyPressed-1];
+		}
+		else{
+			//does nothing
+			return currentGun;
+		}
+	}
+	
 }

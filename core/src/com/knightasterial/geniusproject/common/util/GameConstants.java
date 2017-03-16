@@ -13,4 +13,6 @@ public class GameConstants {
 	public static final int BASE_BASIC_ZOMBIE_HEALTH = 5;
 	
 	public static final float BASE_BASIC_ZOMBIE_SPEED = 150;
+	
+	public static final String NULL_WEAPON_ID = "NULL_WEAPON";
 }
