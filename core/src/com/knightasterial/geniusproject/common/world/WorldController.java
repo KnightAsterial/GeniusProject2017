@@ -5,18 +5,21 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.knightasterial.geniusproject.common.bullets.BasicBullet;
 import com.knightasterial.geniusproject.common.entities.BaseZombieEntity;
 import com.knightasterial.geniusproject.common.entities.IZombie;
 import com.knightasterial.geniusproject.common.entities.PlayerEntity;
 import com.knightasterial.geniusproject.common.util.GameConstants;
+import com.knightasterial.geniusproject.common.util.GameUtil;
 import com.knightasterial.geniusproject.common.util.IOUtil;
 import com.knightasterial.geniusproject.common.util.MathUtil;
+import com.knightasterial.geniusproject.common.weapons.AbstractGun;
+import com.knightasterial.geniusproject.common.weapons.ColtRevolver;
+import com.knightasterial.geniusproject.common.weapons.NullWeapon;
+import com.knightasterial.geniusproject.common.weapons.Shotgun;
 
 public class WorldController {
 	
@@ -24,6 +27,13 @@ public class WorldController {
 	public OrthographicCamera inGameCam = new OrthographicCamera();
 	public List<IZombie> zombieList = new ArrayList<IZombie>();
 	public List<BasicBullet> bulletList = new ArrayList<BasicBullet>();
+	public AbstractGun[] gunList = new AbstractGun[10];
+	{
+		for (int i = 0; i < gunList.length; i++){
+			gunList[i] = new NullWeapon();
+		}
+	}
+	public AbstractGun currentGun;
 	
 	private BasicBullet tempBullet;
 	private IZombie tempZombie;
@@ -36,6 +46,9 @@ public class WorldController {
 	
 	private void init(){
 		player = new PlayerEntity();
+		gunList[0] = new ColtRevolver();
+		gunList[1] = new Shotgun();
+		currentGun = gunList[0];
 	}
 	
 	public void update(float delta){
@@ -54,10 +67,46 @@ public class WorldController {
 			player.setX(player.getX()-GameConstants.BASE_PLAYER_SPEED*delta);
 		}
 		
-		//SPAWN bullets
-		if (Gdx.input.justTouched()){
-			bulletList.add(new BasicBullet(player.getPosition(), IOUtil.getMouseVector(inGameCam), 1000, 20, 3.5f));
+		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 1);
 		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_2)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 2);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_3)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 3);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_4)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 4);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_5)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 5);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_6)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 6);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_7)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 7);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_8)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 8);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_9)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 9);
+		}
+		if (Gdx.input.isKeyPressed(Keys.NUM_0)){
+			currentGun = GameUtil.switchGun(currentGun, gunList, 10);
+		}
+		
+		
+		//SPAWN bullets
+		if (Gdx.input.isKeyJustPressed(Keys.R)){
+			currentGun.reload();
+		}
+		if (Gdx.input.isTouched()){
+			currentGun.fire(player, bulletList, inGameCam);
+		}
+		
 	
 		
 		//iterator for bullet logic
@@ -77,7 +126,7 @@ public class WorldController {
 				bulletIter.remove();
 			}
 			
-
+			//if bullet hits zombie, 
 			for (IZombie zombieToHit : zombieList){
 				if (!tempBullet.canDamage()){
 					break;
@@ -89,10 +138,6 @@ public class WorldController {
 					}
 				}
 			}
-
-			//if bullet hits zombie, 
-			
-			
 		}
 		
 		Iterator<IZombie> zombieIter = zombieList.iterator();
@@ -120,7 +165,6 @@ public class WorldController {
 			bullet.move(delta);
 		}
 		
-
 	}
 	
 	public void setInGameCamera(OrthographicCamera cam){
