@@ -20,6 +20,7 @@ import com.knightasterial.geniusproject.common.weapons.AbstractGun;
 import com.knightasterial.geniusproject.common.weapons.ColtRevolver;
 import com.knightasterial.geniusproject.common.weapons.NullWeapon;
 import com.knightasterial.geniusproject.common.weapons.Shotgun;
+import com.knightasterial.geniusproject.common.weapons.TestGun;
 
 public class WorldController {
 	
@@ -48,6 +49,7 @@ public class WorldController {
 		player = new PlayerEntity();
 		gunList[0] = new ColtRevolver();
 		gunList[1] = new Shotgun();
+		gunList[2] = new TestGun();
 		currentGun = gunList[0];
 	}
 	
